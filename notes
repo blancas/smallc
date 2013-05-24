@@ -1,0 +1,649 @@
+One helpful tip though, is: mvn dependency:go-offline [?]
+[org.clojure.contrib/complete "1.3.0-SNAPSHOT" :classifier "bin"] 
+http://www.amazon.com/Hackers-Delight-Henry-S-Warren/dp/0201914654/ref=sr_1_1?ie=UTF8&s=books&qid=1286378123&sr=1-1#_
+
+http://github.com/clojure
+http://github.com/clojure-contrib
+=============================================================================
+
+These can be picked up from java lang by default:
+Byte
+Character
+Double
+Float
+Integer
+Long
+Math
+Number
+Object
+Process
+ProcessBuilder
+Runtime
+Short
+StackTraceElement
+StrictMath
+StringBuffer
+StringBuilder
+System
+Threa
+Throwable
+========================================================================
+java -server com.martiansoftware.nailgun.NGServer 127.0.0.1:51903
+ng --nailgun-server 127.0.0.1 --nailgun-port 51903 
+
+repo=/home/armando/.m2/repository
+asm=${repo}/asm/asm/3.2/asm-3.2.jar
+asc=${repo}/org/ascii/ascii-table/1.0/ascii-table-1.0.jar
+atr=${repo}/org/antlr/antlr-runtime/3.2/antlr-runtime-3.2.jar
+clj=${repo}/org/clojure/clojure/1.2.0/clojure-1.2.0.jar
+ctb=${repo}/org/clojure/clojure-contrib/1.2.0/clojure-contrib-1.2.0.jar
+jfc=${repo}/swt/jface/3.6.0/jface-3.6.0.jar
+jli=${repo}/jline/jline/0.9.9/jline-0.9.9.jar
+log=${repo}/org/slf4j/slf4j-api/1.6.0/slf4j-api-1.6.0.jar
+log=${log}:${repo}/ch/qos/logback/logback-classic/0.9.24/logback-classic-0.9.24.jar
+log=${log}:${repo}/ch/qos/logback/logback-core/0.9.24/logback-core-0.9.24.jar:.
+psc=${repo}/org/postscript/postscript/1.0-SNAPSHOT/postscript-1.0-SNAPSHOT.jar
+scc=${repo}/smallc/smallc/1.0-SNAPSHOT/smallc-1.0-SNAPSHOT.jar
+udb=${repo}/undbg/undbg/1.0/undbg-1.0.jar
+swt=${repo}/swt/swt-gtk/3.6.0/swt-gtk-3.6.0.jar
+export classpath=${asm}:${asc}:${atr}:${clj}:${ctb}:${jfc}:${jli}:${log}:${psc}:${scc}:${udb}:${swt}
+=================================================================================================
+
+unless (a > b) return a;
+
+(uness (> a b) (RET a))
+
+unless (a > b) {
+    a = a + b;
+    foo();
+    bar();
+}
+
+(unless (> a b) (BLK (= a (+ a b)) (INV foo) (INV bar)))
+
+Tree unless(Tree expr, Tree stmt);
+
+repeat (expr) stmt;
+repeat (5) i++; 
+repeat stmt; // stmt is a block with a break inside
+for (x; y; z) stmt -> for j=x to y step z do stmt
+forall(e coll) {stmt}
+Can I do this with macros?
+========================================================================
+
+I am very dissapointed in Texas's loss today against UCLA. However, I am verey proud of my 
+Texas Rangers for making it to the World Series. GO TEXAS!
+========================================================================
+
+// Pointer notation for traversing arrays and collections
+int i;
+int[20] nums;
+int* p = &nums;
+while (*p++ = i++);
+
+T* --> iterator decl
+& --> get iterator
+++ --> next or null/false
+-- --> prev or null/false
+*id --> itor dereference or null
+
+for (int i=0; i < nums.length; i++)
+    nums[i] = i;
+========================================================================================
+
+Consuming Java
+
+void printf(String s, Object... args)
+int read()
+String readLine();
+--------------------------------------
+System.out.printf();
+(FUN foo void PAR (BLK (INV System.out.printf ARG)))
+
+calling printf on out --> method call
+calling .out on System --> field access
+System not a defined object, may be a class
+System is undefined, try java/lang
+java/lang/System found
+call field access .out on java/lang/System
+do method call on out
+
+x.y.z.foo()
+method call foo() on z
+field access .z on y
+field access .y on x
+
+java.lang.System.out.printf()
+method call printf() on out
+is there a class java.lang.System.out?
+  yes: call static printf on it;
+  no: it's field access out on System
+is there a class java.lang.System
+  yes: call out on it
+========================================================================
+* logical and, or, xor are implemented with branches
+========================================================================
+
+------------------------------
+(defn- find-symbol
+  "Finds a symbol-table entry from an expression."
+  [expr]
+  (let [token (tree-type expr)]
+    (when (= token IDENTIFIER)
+      (let [name (tree-text expr)]
+        (sym-get name)))))
+
+(defn- lvalue?
+  "Tests whether an expression resolves to an L-value."
+  [expr]
+  (if-let [sym (find-symbol expr)]
+    (sym-var? sym)))
+======================================================================
+    (let [desc (.type sym)
+          type (.substring desc (inc (.indexOf desc ")")))]
+      (.setLead stmt type)
+      type)))
+
+    (let [type (.type sym)]
+      (.setLead stmt type)
+      type)))
+===================================================================================
+
+d2f 
+d2i ... i2x
+d2l
+---
+f2d
+f2i ... i2x
+f2l
+---
+i2b
+i2c
+i2d
+i2f
+i2l
+i2s
+---
+l2d
+l2f
+l2i ... i2x
+===============================================================================
+                            0       1        2      3       4        6         7 
+static void casttobyte(byte a, char b, short c, int d, long e, float f, double g) {
+byte _b; // 9
+_b[0] = 127;
+_b[1] = (byte) a;
+_b[2] = (byte) b;
+_b[3] = (byte) c;
+_b[4] = (byte) d;
+_b[5] = (byte) e;
+_b[5] = (byte) f;
+_b[6] = (byte) g;
+}
+
+static void casttobyte(byte, char, short, int, long, float, double);
+   0:	bipush	127
+   2:	istore	9
+   4:	iload_0
+   5:	istore	9
+   7:	iload_1
+   8:	i2b
+   9:	istore	9
+   11:	iload_2
+   12:	i2b
+   13:	istore	9
+   15:	iload_3
+   16:	i2b
+   17:	istore	9
+   19:	lload	4
+   21:	l2i
+   22:	i2b
+   23:	istore	9
+   25:	fload	6
+   27:	f2i
+   28:	i2b
+   29:	istore	9
+   31:	dload	7
+   33:	d2i
+   34:	i2b
+   35:	istore	9
+   37:	return
+
+static void casttoshort(byte, char, short, int, long, float, double);
+   0:	iload_0
+   1:	istore	9
+   3:	iload_1
+   4:	i2s
+   5:	istore	9
+   7:	iload_2
+   8:	istore	9
+   10:	iload_3
+   11:	i2s
+   12:	istore	9
+   14:	lload	4
+   16:	l2i
+   17:	i2s
+   18:	istore	9
+   20:	fload	6
+   22:	f2i
+   23:	i2s
+   24:	istore	9
+   26:	dload	7
+   28:	d2i
+   29:	i2s
+   30:	istore	9
+   32:	return
+
+static void casttoint(byte, char, short, int, long, float, double);
+   0:	iload_0
+   1:	istore	9
+   3:	iload_1
+   4:	istore	9
+   6:	iload_2
+   7:	istore	9
+   9:	iload_3
+   10:	istore	9
+   12:	lload	4
+   14:	l2i
+   15:	istore	9
+   17:	fload	6
+   19:	f2i
+   20:	istore	9
+   22:	dload	7
+   24:	d2i
+   25:	istore	9
+   27:	return
+
+static void casttolong(byte, char, short, int, long, float, double);
+   0:	iload_0
+   1:	i2l
+   2:	lstore	9
+   4:	iload_1
+   5:	i2l
+   6:	lstore	9
+   8:	iload_2
+   9:	i2l
+   10:	lstore	9
+   12:	iload_3
+   13:	i2l
+   14:	lstore	9
+   16:	lload	4
+   18:	lstore	9
+   20:	fload	6
+   22:	f2l
+   23:	lstore	9
+   25:	dload	7
+   27:	d2l
+   28:	lstore	9
+   30:	return
+
+static void casttofloat(byte, char, short, int, long, float, double);
+   0:	iload_0
+   1:	i2f
+   2:	fstore	9
+   4:	iload_1
+   5:	i2f
+   6:	fstore	9
+   8:	iload_2
+   9:	i2f
+   10:	fstore	9
+   12:	iload_3
+   13:	i2f
+   14:	fstore	9
+   16:	lload	4
+   18:	l2f
+   19:	fstore	9
+   21:	fload	6
+   23:	fstore	9
+   25:	dload	7
+   27:	d2f
+   28:	fstore	9
+   30:	return
+
+static void casttodouble(byte, char, short, int, long, float, double);
+   0:	iload_0
+   1:	i2d
+   2:	dstore	9
+   4:	iload_1
+   5:	i2d
+   6:	dstore	9
+   8:	iload_2
+   9:	i2d
+   10:	dstore	9
+   12:	iload_3
+   13:	i2d
+   14:	dstore	9
+   16:	lload	4
+   18:	l2d
+   19:	dstore	9
+   21:	fload	6
+   23:	f2d
+   24:	dstore	9
+   26:	dload	7
+   28:	dstore	9
+   30:	return
+================================================================================
+op  use
+==  ifne
+!=  ifeq
+>   ifle
+<   ifge
+>=  iflt
+<=  ifgt
+
+static void intExprZero(int a) {
+  boolean 
+  x = a == 0;
+  x = a != 0;
+  x = a > 0;
+  x = a < 0;
+  x = a >= 0;
+  x = a <= 0;
+}
+
+static void intExprZero(int);
+   0:	iload_0
+   1:	ifne	8
+   4:	iconst_1
+   5:	goto	9
+   8:	iconst_0
+   9:	istore_1
+   10:	iload_0
+   11:	ifeq	18
+   14:	iconst_1
+   15:	goto	19
+   18:	iconst_0
+   19:	istore_1
+   20:	iload_0
+   21:	ifle	28
+   24:	iconst_1
+   25:	goto	29
+   28:	iconst_0
+   29:	istore_1
+   30:	iload_0
+   31:	ifge	38
+   34:	iconst_1
+   35:	goto	39
+   38:	iconst_0
+   39:	istore_1
+   40:	iload_0
+   41:	iflt	48
+   44:	iconst_1
+   45:	goto	49
+   48:	iconst_0
+   49:	istore_1
+   50:	iload_0
+   51:	ifgt	58
+   54:	iconst_1
+   55:	goto	59
+   58:	iconst_0
+   59:	istore_1
+   60:	return
+-------------------------------------------------------------------------
+op  use
+==  if_icmpne
+!=  if_icmpeq
+>   if_icmple
+<   if_icmpge
+>=  if_icmplt
+<=  if_icmpgt
+
+static void simpleExpr(int a, int b) {
+  boolean 
+  x = a == b;
+  x = a != b;
+  x = a > b;
+  x = a < b;
+  x = a >= b;
+  x = a <= b;
+}
+
+static void simpleExpr(int, int);
+  x = a == b;
+   0:	iload_0
+   1:	iload_1
+   2:	if_icmpne	9
+   5:	iconst_1
+   6:	goto	10
+   9:	iconst_0
+   10:	istore_2
+  x = a != b;
+   11:	iload_0
+   12:	iload_1
+   13:	if_icmpeq	20
+   16:	iconst_1
+   17:	goto	21
+   20:	iconst_0
+   21:	istore_2
+  x = a > b;
+   22:	iload_0
+   23:	iload_1
+   24:	if_icmple	31
+   27:	iconst_1
+   28:	goto	32
+   31:	iconst_0
+   32:	istore_2
+  x = a < b;
+   33:	iload_0
+   34:	iload_1
+   35:	if_icmpge	42
+   38:	iconst_1
+   39:	goto	43
+   42:	iconst_0
+   43:	istore_2
+  x = a >= b;
+   44:	iload_0
+   45:	iload_1
+   46:	if_icmplt	53
+   49:	iconst_1
+   50:	goto	54
+   53:	iconst_0
+   54:	istore_2
+  x = a <= b;
+   55:	iload_0
+   56:	iload_1
+   57:	if_icmpgt	64
+   60:	iconst_1
+   61:	goto	65
+   64:	iconst_0
+   65:	istore_2
+   66:	return
+--------------------------------------------------------------------------------
+two opcodes:
+-----------
+fcmpl
+fcmpg
+dcmpl
+dcmpg
+lcmp
+
+followed by the usage against zero.
+
+static void nonintExprZero() {
+  long a = 0;
+  float b = 0;
+  double c = 0;
+  boolean
+  x = a == 0;
+  x = b == 0;
+  x = c == 0;
+  x = a != 0;
+  x = b != 0;
+  x = c != 0;
+  x = a > 0;
+  x = b > 0;
+  x = c > 0;
+  x = a < 0;
+  x = b < 0;
+  x = c < 0;
+  x = a >= 0;
+  x = b >= 0;
+  x = c >= 0;
+  x = a <= 0;
+  x = b <= 0;
+  x = c <= 0;
+}
+
+static void nonintExprZero();
+  Signature: ()V
+  Code:
+   Stack=4, Locals=6, Args_size=0
+   0:	lconst_0
+   1:	lstore_0
+   2:	fconst_0
+   3:	fstore_2
+   4:	dconst_0
+   5:	dstore_3
+   6:	lload_0
+   7:	lconst_0
+   8:	lcmp
+   9:	ifne	16
+   12:	iconst_1
+   13:	goto	17
+   16:	iconst_0
+   17:	istore	5
+   19:	fload_2
+   20:	fconst_0
+   21:	fcmpl
+   22:	ifne	29
+   25:	iconst_1
+   26:	goto	30
+   29:	iconst_0
+   30:	istore	5
+   32:	dload_3
+   33:	dconst_0
+   34:	dcmpl
+   35:	ifne	42
+   38:	iconst_1
+   39:	goto	43
+   42:	iconst_0
+   43:	istore	5
+   45:	lload_0
+   46:	lconst_0
+   47:	lcmp
+   48:	ifeq	55
+   51:	iconst_1
+   52:	goto	56
+   55:	iconst_0
+   56:	istore	5
+   58:	fload_2
+   59:	fconst_0
+   60:	fcmpl
+   61:	ifeq	68
+   64:	iconst_1
+   65:	goto	69
+   68:	iconst_0
+   69:	istore	5
+   71:	dload_3
+   72:	dconst_0
+   73:	dcmpl
+   74:	ifeq	81
+   77:	iconst_1
+   78:	goto	82
+   81:	iconst_0
+   82:	istore	5
+   84:	lload_0
+   85:	lconst_0
+   86:	lcmp
+   87:	ifle	94
+   90:	iconst_1
+   91:	goto	95
+   94:	iconst_0
+   95:	istore	5
+   97:	fload_2
+   98:	fconst_0
+   99:	fcmpl
+   100:	ifle	107
+   103:	iconst_1
+   104:	goto	108
+   107:	iconst_0
+   108:	istore	5
+   110:	dload_3
+   111:	dconst_0
+   112:	dcmpl
+   113:	ifle	120
+   116:	iconst_1
+   117:	goto	121
+   120:	iconst_0
+   121:	istore	5
+   123:	lload_0
+   124:	lconst_0
+   125:	lcmp
+   126:	ifge	133
+   129:	iconst_1
+   130:	goto	134
+   133:	iconst_0
+   134:	istore	5
+   136:	fload_2
+   137:	fconst_0
+   138:	fcmpg
+   139:	ifge	146
+   142:	iconst_1
+   143:	goto	147
+   146:	iconst_0
+   147:	istore	5
+   149:	dload_3
+   150:	dconst_0
+   151:	dcmpg
+   152:	ifge	159
+   155:	iconst_1
+   156:	goto	160
+   159:	iconst_0
+   160:	istore	5
+   162:	lload_0
+   163:	lconst_0
+   164:	lcmp
+   165:	iflt	172
+   168:	iconst_1
+   169:	goto	173
+   172:	iconst_0
+   173:	istore	5
+   175:	fload_2
+   176:	fconst_0
+   177:	fcmpl
+   178:	iflt	185
+   181:	iconst_1
+   182:	goto	186
+   185:	iconst_0
+   186:	istore	5
+   188:	dload_3
+   189:	dconst_0
+   190:	dcmpl
+   191:	iflt	198
+   194:	iconst_1
+   195:	goto	199
+   198:	iconst_0
+   199:	istore	5
+   201:	lload_0
+   202:	lconst_0
+   203:	lcmp
+   204:	ifgt	211
+   207:	iconst_1
+   208:	goto	212
+   211:	iconst_0
+   212:	istore	5
+   214:	fload_2
+   215:	fconst_0
+   216:	fcmpg
+   217:	ifgt	224
+   220:	iconst_1
+   221:	goto	225
+   224:	iconst_0
+   225:	istore	5
+   227:	dload_3
+   228:	dconst_0
+   229:	dcmpg
+   230:	ifgt	237
+   233:	iconst_1
+   234:	goto	238
+   237:	iconst_0
+   238:	istore	5
+   240:	return
+=======================================================================
+if (type.equals("F")) {
+} else if (type.equals("D")) {
+} else if (type.equals("J")) {		
+} else if (type.equals("Z") || type.equals("B") || type.equals("C") || 
+		   type.equals("S") || type.equals("I")) {
+} else {
+}

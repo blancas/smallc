@@ -1,0 +1,12 @@
+(use 'smallc.cc)
+
+; for dev in the repl
+(if-let [s (cc "src/test/resources" "target/classes" "" "smoke.c")] (cc-msg))
+
+; the symtbl is not cleared from call to call of cc
+
+; for tesing smoke.c with Smoking.java
+(cc "src/test/resources" "src/test/resources" "" "smoke.c")
+(cc "src/test/resources" "src/test/resources" "" "pkg/smallc/simple.c")
+javac Smoking.java
+java Smoking
