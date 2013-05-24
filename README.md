@@ -4,7 +4,7 @@ A compiler for a subset of C.
 
 ## Contents:
 
-* dev.clj          - Snippets for development and testing.
+* `dev.clj        `  - Snippets for development and testing.
 * logback.xml      - Logback configuration file.
 * pom.xml          - Maven build file.
 * repl             - REPL launcher with the project's dependencies.
