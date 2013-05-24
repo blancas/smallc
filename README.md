@@ -11,7 +11,7 @@ A compiler for a subset of C.
 * `src` Source directories.
 * `target` Build target.
 
-### `src/test/resources`
+#### `src/test/resources`
 
 * `logback-test.xml` Logback configuration file.
 * `simple.c` Test file used in JUnit tests.
@@ -19,7 +19,7 @@ A compiler for a subset of C.
 * `Smoking.java` Java class for consuming smoke.class.
 * `interop_nnn.c` C source test cases.
 
-### `src/test/java/smallc/test`
+#### `src/test/java/smallc/test`
 
 * `BaseParser.java`
 * `Declarations.java`
